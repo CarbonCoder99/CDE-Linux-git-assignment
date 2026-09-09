@@ -11,6 +11,8 @@ TRANFORMED_FILE="$TRANFORMED_DIR/2023_year_finance.csv"  #this is the path to th
 
 LOG_TIMESTAMP="$(date '+%Y-%m-%d %H:%M:%S')"  #this will be used to create a timestamp for terminal logging
 
+export CSV_URL="${CSV_URL:-https://www.stats.govt.nz/assets/Uploads/Annual-enterprise-survey/Annual-enterprise-survey-2023-financial-year-provisional/Download-data/annual-enterprise-survey-2023-financial-year-provisional.csv}"
+
 echo "===================================================================="
 echo "========== ETL Pipeline Started ======="
 echo " Run started at: $LOG_TIMESTAMP"
@@ -24,7 +26,7 @@ echo "Extraction starting now..."
 echo "Downloading raw data from source..."
 
 # Download the raw data from the source and save it to the raw directory
-curl -L -o "$RAW_FILE" "$CSV_URL"
+curl -s -L -o "$RAW_FILE" "$CSV_URL"
 
 # Confirm that the raw data was downloaded successfully
 if [ -f "$RAW_FILE" ]; then
@@ -40,6 +42,45 @@ fi
 echo ""
 echo "Transformation starting now..."
 
-# Perform data transformation logic here
+mkdir -p "$TRANFORMED_DIR"  # Create the transformed directory if it doesn't exist
+
+# Transformation will be done here with awk command. The transformation logic will:
+#   - Reads the header row and records the position (column number) of
+#     each column we care about, by NAME, so column order in the source
+#     file doesn't matter.
+#   - Renames "Variable_code" to "variable_code" while reading the header.
+#   - Writes out only: year, Value, Units, variable_code, in that order.
+
+awk -F',' '
+BEGIN {
+  OFS=","
+}
+NR==1 {
+  # Find column indices by name
+  for (i=1; i<=NF; i++) {
+    if ($i=="Year") y=i
+    if ($i=="Value") v=i
+    if ($i=="Units") u=i
+    if ($i=="Variable_code" || $i=="variable code") c=i
+  }
+  print "Year","Value","Units","variable_code"
+  next
+}
+{
+  print $y,$v,$u,$c
+}
+' "$RAW_FILE" > "$TRANSFORMED_FILE"
+
+# Now, we confirm if the tranformed file was written successfully
+
+if [ -s "$TRANSFORMED_FILE" ] && [ "$(wc -l < "$TRANSFORMED_FILE")" -gt 1 ]; then
+    echo "[TRANSFORM] SUCCESS: Transformed file saved to: $TRANSFORMED_FILE"
+    echo "[TRANSFORM] Preview of transformed data:"
+    head -n 5 "$TRANSFORMED_FILE"
+else
+    echo "[TRANSFORM] ERROR: Transformation produced no data rows. Aborting."
+    exit 1
+fi
 
 # LOAD LOGIC
+
