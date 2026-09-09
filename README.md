@@ -32,6 +32,8 @@ coredataengineers-project/
 ├── raw/                      # Extract output (git-ignored, created at runtime)
 ├── Transformed/               # Transform output (git-ignored, created at runtime)
 ├── Gold/                      # Load output (git-ignored, created at runtime)
+├── json_and_csv/              # destination directory for move logic
+├── datasets/                  # source directory for the move logic
 ├── .gitignore
 └── README.md
 ```
