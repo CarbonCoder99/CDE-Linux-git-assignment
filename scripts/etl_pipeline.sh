@@ -83,3 +83,23 @@ fi
 
 # LOAD LOGIC
 
+echo ""
+echo "Loading starting now..."
+
+mkdir -p "$GOLD_DIR"  # Create the gold directory if it doesn't exist
+
+cp "$TRANSFORMED_FILE" "$GOLD_DIR/"
+
+# Confirm that the file was copied successfully
+if [ -s "$GOLD_DIR/2023_year_finance.csv" ]; then
+    echo "[LOAD] SUCCESS: File loaded into: $GOLD_DIR/2023_year_finance.csv"
+else
+    echo "[LOAD] ERROR: Load step failed. Aborting."
+    exit 1
+fi
+
+
+echo "===================================================================="
+echo "========== ETL Pipeline completed successfully ======="
+echo " Completed at: $LOG_TIMESTAMP"
+echo "===================================================================="
