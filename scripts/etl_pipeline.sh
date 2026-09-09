@@ -11,7 +11,6 @@ TRANSFORMED_FILE="$TRANSFORMED_DIR/2023_year_finance.csv"  #this is the path to 
 
 LOG_TIMESTAMP="$(date '+%Y-%m-%d %H:%M:%S')"  #this will be used to create a timestamp for terminal logging
 
-export CSV_URL="${CSV_URL:-https://www.stats.govt.nz/assets/Uploads/Annual-enterprise-survey/Annual-enterprise-survey-2023-financial-year-provisional/Download-data/annual-enterprise-survey-2023-financial-year-provisional.csv}"
 
 echo "===================================================================="
 echo "========== ETL Pipeline Started ======="
