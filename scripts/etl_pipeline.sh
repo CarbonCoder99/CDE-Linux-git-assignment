@@ -1,13 +1,13 @@
 #!/bin/bash
 
 #Set up Folder and File names as variables so they can be easily changed in one place
-BASE_DIR= "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"      #this will be the project root
+BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"      #this will be the project root
 RAW_DIR="$BASE_DIR/raw"        #this is where the raw data will be stored
-TRANFORMED_DIR="$BASE_DIR/transformed"  #this is where the transformed data will be stored
+TRANSFORMED_DIR="$BASE_DIR/Transformed"  #this is where the transformed data will be stored
 GOLD_DIR="$BASE_DIR/gold"        #this is where the final data will be stored
 
 RAW_FILE="$RAW_DIR/source_data.csv"  #this is the path to the raw data file
-TRANFORMED_FILE="$TRANFORMED_DIR/2023_year_finance.csv"  #this is the path to the transformed data file
+TRANSFORMED_FILE="$TRANSFORMED_DIR/2023_year_finance.csv"  #this is the path to the transformed data file
 
 LOG_TIMESTAMP="$(date '+%Y-%m-%d %H:%M:%S')"  #this will be used to create a timestamp for terminal logging
 
@@ -42,7 +42,7 @@ fi
 echo ""
 echo "Transformation starting now..."
 
-mkdir -p "$TRANFORMED_DIR"  # Create the transformed directory if it doesn't exist
+mkdir -p "$TRANSFORMED_DIR"  # Create the transformed directory if it doesn't exist
 
 # Transformation will be done here with awk command. The transformation logic will:
 #   - Reads the header row and records the position (column number) of
@@ -51,8 +51,7 @@ mkdir -p "$TRANFORMED_DIR"  # Create the transformed directory if it doesn't exi
 #   - Renames "Variable_code" to "variable_code" while reading the header.
 #   - Writes out only: year, Value, Units, variable_code, in that order.
 
-awk -F',' '
-BEGIN {
+awk -F',' ' BEGIN {
   OFS=","
 }
 NR==1 {
@@ -78,7 +77,7 @@ if [ -s "$TRANSFORMED_FILE" ] && [ "$(wc -l < "$TRANSFORMED_FILE")" -gt 1 ]; the
     echo "[TRANSFORM] Preview of transformed data:"
     head -n 5 "$TRANSFORMED_FILE"
 else
-    echo "[TRANSFORM] ERROR: Transformation produced no data rows. Aborting."
+    echo "[TRANSFORM] ERROR: Transformation produced no data rows. Aborting..."
     exit 1
 fi
 
