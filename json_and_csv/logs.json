@@ -1,0 +1,4 @@
+[
+  {"timestamp": "2026-06-09T08:00:00Z", "level": "INFO", "message": "Server started successfully."},
+  {"timestamp": "2026-06-09T08:05:22Z", "level": "WARNING", "message": "High memory usage detected."}
+]

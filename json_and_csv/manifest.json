@@ -1,0 +1,6 @@
+{
+  "name": "DataPipelineTool",
+  "version": "1.4.2",
+  "author": "Engineering Team",
+  "dependencies": ["pandas", "requests", "pydantic"]
+}

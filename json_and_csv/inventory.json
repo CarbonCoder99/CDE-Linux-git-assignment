@@ -1,0 +1,8 @@
+{
+  "warehouse_id": "WH-North",
+  "last_audit": "2026-05-15",
+  "items": [
+    {"sku": "SKU-992", "qty": 412},
+    {"sku": "SKU-993", "qty": 88}
+  ]
+}

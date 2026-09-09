@@ -1,0 +1,9 @@
+{
+  "theme": "dark",
+  "notifications": {
+    "email": true,
+    "push": false,
+    "sms": true
+  },
+  "language": "en-US"
+}

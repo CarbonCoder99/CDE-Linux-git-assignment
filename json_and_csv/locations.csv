@@ -1,0 +1,5 @@
+location_id,city,country,is_hub
+L1,New York,USA,true
+L2,London,UK,true
+L3,Tokyo,Japan,false
+L4,Sydney,Australia,false

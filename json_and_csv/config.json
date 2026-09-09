@@ -1,0 +1,6 @@
+{
+  "environment": "production",
+  "port": 8080,
+  "debug_mode": false,
+  "timeout": 30
+}

@@ -1,0 +1,4 @@
+metric_name,value,unit,recorded_at
+cpu_usage,42.5,percent,2026-06-09T08:50:00Z
+memory_usage,68.1,percent,2026-06-09T08:50:00Z
+active_connections,1240,count,2026-06-09T08:50:00Z
