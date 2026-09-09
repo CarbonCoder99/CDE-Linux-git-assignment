@@ -10,7 +10,6 @@ CoreDataEngineers runs its infrastructure on Linux. This repo contains the scrip
 - **`cron_setup.sh`** — Schedules the ETL script to run automatically every day at 12:00 AM.
 - **`move_csv_json.sh`** — Utility script that sweeps CSV and JSON files from any folder into a single `json_and_csv/` folder.
 
-All output data is versioned separately from the scripts (see [`.gitignore`](#project-structure)) — only the automation logic itself is tracked in git.
 
 ## Features
 
